@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ARGOS.API/ARGOS.API.csproj" />
+    <Project Path="src/ARGOS.Desktop/ARGOS.Desktop.csproj" />
+    <Project Path="src/ARGOS.Server/ARGOS.Server.csproj" />
+    <Project Path="src/ARGOS.Setup/ARGOS.Setup.csproj" />
+    <Project Path="src/ARGOS.Application/ARGOS.Application.csproj" />
+    <Project Path="src/ARGOS.Domain/ARGOS.Domain.csproj" />
+    <Project Path="src/ARGOS.Infrastructure/ARGOS.Infrastructure.csproj" />
+    <Project Path="src/ARGOS.SharedKernel/ARGOS.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ARGOS.IntegrationTests/ARGOS.IntegrationTests.csproj" />
+    <Project Path="tests/ARGOS.UnitTests/ARGOS.UnitTests.csproj" />
+    <Project Path="tests/ARGOS.Setup.Tests/ARGOS.Setup.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Asistente de primera implantación de ARGOS 3.0">
+  <title>Implantación inicial | ARGOS 3.0</title>
+  <link rel="stylesheet" href="/setup/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/setup/" aria-label="ARGOS, inicio del asistente">
+      <span class="brand-mark">A</span>
+      <span><strong>ARGOS 3.0</strong><small>Configuración institucional</small></span>
+    </a>
+    <span id="connectionStatus" class="status-pill">Comprobando sistema…</span>
+    <a href="/home/">Inicio de ARGOS</a>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" aria-label="Progreso de la implantación">
+      <p class="eyebrow">Primera implantación</p>
+      <h1>Prepare ARGOS para su organización</h1>
+      <p class="lead">Defina la estructura y el vocabulario oficial antes de iniciar la operación.</p>
+      <ol id="progress" class="progress">
+        <li data-step="1"><span>1</span><div><strong>Institución</strong><small>Identidad y responsable</small></div></li>
+        <li data-step="2"><span>2</span><div><strong>Vocabulario</strong><small>Nombres oficiales</small></div></li>
+        <li data-step="3"><span>3</span><div><strong>Unidades</strong><small>Estructura interna</small></div></li>
+        <li data-step="4"><span>4</span><div><strong>Catálogos</strong><small>Competencias y calidades</small></div></li>
+        <li data-step="5"><span>5</span><div><strong>Puestos</strong><small>Responsabilidades</small></div></li>
+        <li data-step="6"><span>6</span><div><strong>Publicación</strong><small>Revisión final</small></div></li>
+      </ol>
+      <div class="principle">
+        <strong>Una regla esencial</strong>
+        <p>Las personas no son los puestos. ARGOS conservará ambas identidades por separado.</p>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+      <section class="panel step" data-step="1">
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 1 de 6</p>
+          <h2>Identifique la institución</h2>
+          <p>Estos datos crean la raíz organizacional de esta instalación.</p>
+        </div>
+        <form id="organizationForm" class="form-grid">
+          <label class="field span-2">Nombre legal
+            <input id="organizationName" maxlength="200" required placeholder="Nombre oficial de la institución">
+          </label>
+          <label class="field">Código institucional
+            <input id="organizationCode" maxlength="50" required placeholder="Ej. INST-01">
+          </label>
+          <label class="field">Descripción
+            <input id="organizationDescription" maxlength="2000" placeholder="Descripción opcional">
+          </label>
+          <div class="section-label span-2">Responsabilidad y autorización</div>
+          <label class="field">Persona responsable
+            <input id="actorReference" maxlength="100" required placeholder="Identificador del responsable">
+          </label>
+          <label class="field">Versión de política
+            <input id="policyVersion" maxlength="100" required value="implantacion-v1">
+          </label>
+          <label class="field span-2">Referencia de autorización
+            <input id="authorizationReference" maxlength="200" required placeholder="Acuerdo, oficio, orden o autorización aplicable">
+          </label>
+          <div class="actions span-2">
+            <button class="button primary" type="submit">Crear institución y continuar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel step" data-step="2" hidden>
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 2 de 6</p>
+          <h2>Use el vocabulario oficial</h2>
+          <p>Indique cómo se llama cada concepto en su institución, en singular y en plural. Por ejemplo: Ministerio y Ministerios. Escriba el término general, no el nombre de una institución o de una persona. Los ejemplos son solo una guía; puede usar sus propios términos.</p>
+        </div>
+        <form id="termsForm">
+          <div id="termRows" class="term-grid"></div>
+          <div class="actions">
+            <button class="button secondary" type="button" data-back="1">Atrás</button>
+            <button class="button primary" type="submit">Guardar vocabulario</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel step" data-step="3" hidden>
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 3 de 6</p>
+          <h2>Construya la estructura</h2>
+          <p>Agregue direcciones, departamentos, áreas u otras unidades con el nombre que corresponda.</p>
+        </div>
+        <form id="unitForm" class="inline-form">
+          <label class="field">Código<input id="unitCode" maxlength="50" required></label>
+          <label class="field wide">Nombre<input id="unitName" maxlength="200" required></label>
+          <label class="field wide">Depende de<select id="unitParent"><option value="">Unidad principal</option></select></label>
+          <button id="unitSubmit" class="button outline" type="submit">Agregar unidad</button>
+        </form>
+        <div class="collection"><h3>Unidades registradas</h3><ul id="unitList" class="item-list"></ul></div>
+        <div class="actions">
+          <button class="button secondary" type="button" data-back="2">Atrás</button>
+          <button id="unitsContinue" class="button primary" type="button">Continuar</button>
+        </div>
+      </section>
+
+      <section class="panel step" data-step="4" hidden>
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 4 de 6</p>
+          <h2>Defina facultades y calidades</h2>
+          <p>Las competencias pertenecen al puesto. Las calidades indican el carácter con que se actúa.</p>
+        </div>
+        <div class="split">
+          <div class="subpanel">
+            <h3>Competencias</h3>
+            <form id="competenceForm" class="stack-form">
+              <label class="field">Código<input id="competenceCode" maxlength="50" required></label>
+              <label class="field">Nombre<input id="competenceName" maxlength="200" required></label>
+              <label class="field">Descripción<textarea id="competenceDescription" maxlength="2000"></textarea></label>
+              <button class="button outline" type="submit">Agregar competencia</button>
+            </form>
+            <ul id="competenceList" class="item-list compact"></ul>
+          </div>
+          <div class="subpanel">
+            <h3>Calidades de actuación</h3>
+            <form id="capacityForm" class="stack-form">
+              <label class="field">Código<input id="capacityCode" maxlength="50" required></label>
+              <label class="field">Nombre<input id="capacityName" maxlength="200" required></label>
+              <label class="field">Descripción<textarea id="capacityDescription" maxlength="2000"></textarea></label>
+              <button class="button outline" type="submit">Agregar calidad</button>
+            </form>
+            <ul id="capacityList" class="item-list compact"></ul>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="button secondary" type="button" data-back="3">Atrás</button>
+          <button id="catalogsContinue" class="button primary" type="button">Continuar</button>
+        </div>
+      </section>
+
+      <section class="panel step" data-step="5" hidden>
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 5 de 6</p>
+          <h2>Configure los puestos</h2>
+          <p>Cada puesto debe quedar vinculado con su unidad y al menos una competencia.</p>
+        </div>
+        <form id="positionForm" class="form-grid">
+          <label class="field">Código<input id="positionCode" maxlength="50" required readonly>
+            <small class="field-help">Se propone automáticamente según la unidad y el nombre del puesto.</small>
+          </label>
+          <label class="field">Nombre del puesto<input id="positionName" maxlength="200" placeholder="Ej.: Gestor de Plataforma" required>
+            <small>Indique el cargo. La persona que lo ocupa se registra por separado y se vincula mediante una asignación.</small>
+          </label>
+          <label class="field">Unidad<select id="positionUnit" required></select></label>
+          <label class="field">Competencia inicial<select id="positionCompetence" required></select></label>
+          <label class="field span-2">Calidad inicial<select id="positionCapacity" required></select></label>
+          <div class="actions span-2"><button class="button outline" type="submit">Agregar puesto</button></div>
+        </form>
+        <div class="collection"><h3>Puestos registrados</h3><ul id="positionList" class="item-list"></ul></div>
+        <div class="actions">
+          <button class="button secondary" type="button" data-back="4">Atrás</button>
+          <button id="positionsContinue" class="button primary" type="button">Revisar configuración</button>
+        </div>
+      </section>
+
+      <section class="panel step" data-step="6" hidden>
+        <div class="panel-heading">
+          <p class="eyebrow">Paso 6 de 6</p>
+          <h2>Revise y publique</h2>
+          <p>Una versión publicada queda protegida. Los cambios posteriores se prepararán en una versión nueva.</p>
+        </div>
+        <div id="reviewCards" class="review-grid"></div>
+        <div id="publishedMessage" class="success-box" hidden>
+          <span class="success-icon">✓</span>
+          <div><strong>Configuración publicada</strong><p>ARGOS ya conserva esta estructura como versión institucional vigente.</p></div>
+        </div>
+        <div class="actions">
+          <button class="button secondary" type="button" data-back="5">Atrás</button>
+          <button id="newVersionButton" class="button secondary" type="button" hidden>Crear nueva versión editable</button>
+          <button id="publishButton" class="button primary" type="button">Publicar configuración</button>
+        </div>
+      </section>
+      <section id="initialAdministrator" class="panel" hidden>
+        <div class="panel-heading"><p class="eyebrow">ÚLTIMO PASO</p><h2>Registre al administrador inicial</h2><p>Esta cuenta se crea únicamente desde el equipo local durante la primera implantación.</p></div>
+        <form id="initialAdministratorForm" class="form-grid">
+          <label class="field span-2">Nombre completo<input id="initialAdminName" maxlength="200" required></label>
+          <label class="field">Identificación oficial<input id="initialAdminIdentification" maxlength="100" required></label>
+          <label class="field">Correo institucional<input id="initialAdminEmail" type="email" maxlength="254" required></label>
+          <label class="field">Contraseña inicial ARGOS<input id="initialAdminPassword" type="password" minlength="8" required><small>Incluya mayúscula, minúscula, número y símbolo.</small></label>
+          <label class="field">Repita la contraseña<input id="initialAdminRepeat" type="password" minlength="8" required></label>
+          <p id="initialAdministratorMessage" class="form-message span-2" role="status" aria-live="polite" hidden></p>
+          <div class="actions span-2"><button class="button primary" type="submit">Crear administrador e ir al acceso</button></div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script src="/setup/app.js?v=initial-administrator-20261001" defer></script>
+</body>
+</html>

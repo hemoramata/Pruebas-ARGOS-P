@@ -1,0 +1,27 @@
+<Window x:Class="ARGOS.Server.BackupWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="ARGOS · Respaldo de PostgreSQL" Width="700" Height="760" WindowStartupLocation="CenterOwner">
+ <Window.Resources>
+  <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  <Style TargetType="TextBox"><Setter Property="Padding" Value="8"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="Button"><Setter Property="Padding" Value="12"/><Setter Property="Margin" Value="0,8"/></Style>
+ </Window.Resources>
+ <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="24">
+  <TextBlock Text="Respaldo de la base de datos" FontSize="24" FontWeight="Bold"/>
+  <TextBlock Text="No es un respaldo completo de ARGOS: no incluye archivos externos, claves KMS ni configuración. La copia portable se cifra antes de guardarse; conserve su clave de recuperación fuera de ARGOS." Margin="0,12"/>
+  <StackPanel x:Name="Fields">
+   <TextBlock Text="Servidor PostgreSQL"/><TextBox x:Name="Host" Text="localhost"/>
+   <TextBlock Text="Puerto"/><TextBox x:Name="Port" Text="5432"/>
+   <TextBlock Text="Base de datos"/><TextBox x:Name="Database" Text="ARGOS_PRUEBAS_20260917"/>
+   <TextBlock Text="Usuario"/><TextBox x:Name="User" Text="postgres"/>
+   <TextBlock Text="Contraseña PostgreSQL (solo para esta operación)"/><PasswordBox x:Name="Password" Padding="8"/>
+   <TextBlock Text="Carpeta bin de PostgreSQL"/><TextBox x:Name="Bin" Text="C:\Program Files\PostgreSQL\18\bin"/>
+   <Button Content="Elegir herramientas PostgreSQL…" Click="ChooseBin"/>
+   <TextBlock Text="Destino en disco protegido"/><TextBox x:Name="Destination"/>
+   <Button Content="Elegir destino…" Click="ChooseDestination"/>
+   <TextBlock Text="Clave de recuperación del respaldo (mínimo 12 caracteres; ARGOS no la guarda)"/><PasswordBox x:Name="RecoveryPassphrase" Padding="8" Margin="0,4,0,12"/>
+   <TextBlock Text="Repita la clave de recuperación"/><PasswordBox x:Name="RecoveryPassphraseConfirmation" Padding="8" Margin="0,4,0,12"/>
+   <CheckBox x:Name="Consent" Content="Confirmo la base y que el destino está protegido." Margin="0,10"/>
+  </StackPanel>
+  <Button x:Name="CreateButton" Content="Crear respaldo sin modificar la base" Click="CreateBackup"/>
+  <TextBlock x:Name="Result" Margin="0,12"/>
+ </StackPanel></ScrollViewer>
+</Window>

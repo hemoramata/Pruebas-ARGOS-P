@@ -1,0 +1,36 @@
+<Window x:Class="ARGOS.Server.InstallWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="ARGOS · Instalar servidor" Width="720" Height="780" WindowStartupLocation="CenterOwner" Background="#EFF6F6">
+ <Window.Resources>
+  <Style TargetType="TextBox"><Setter Property="Padding" Value="8"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="PasswordBox"><Setter Property="Padding" Value="8"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+  <Style TargetType="TextBlock"><Setter Property="TextWrapping" Value="Wrap"/></Style>
+  <Style TargetType="Button"><Setter Property="Padding" Value="12"/><Setter Property="Margin" Value="0,4,0,12"/></Style>
+ </Window.Resources>
+ <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="28">
+  <TextBlock Text="Instalación del servidor" FontSize="26" FontWeight="Bold"/>
+  <TextBlock Text="No sobrescribe instalaciones ni modifica la base de datos. Al finalizar el servicio quedará detenido para que revise su configuración." Margin="0,10,0,20"/>
+  <StackPanel x:Name="Fields">
+   <TextBlock Text="Preparación de PRUEBAS · revise los datos antes de confirmar" FontWeight="Bold" Foreground="#087F86" Margin="0,0,0,16"/>
+   <TextBlock Text="Nombre del servicio (por ejemplo ARGOS-Pruebas)"/><TextBox x:Name="ServiceName" Text="ARGOS-Pruebas"/>
+   <TextBlock Text="Carpeta del paquete publicado del servidor"/><TextBox x:Name="Package"/><Button Content="Seleccionar paquete…" Click="SelectPackage"/>
+   <TextBlock Text="Carpeta nueva de instalación"/><TextBox x:Name="Destination"/><Button Content="Elegir carpeta contenedora…" Click="SelectDestination"/>
+   <TextBlock Text="Dirección HTTPS (nombre del certificado y puerto libre)"/><TextBox x:Name="Address" Text="https://localhost:7443"/>
+   <TextBlock Text="Conexión segura del servidor" FontWeight="Bold"/>
+   <TextBlock Text="Para esta laptop puede crear un certificado de pruebas de 30 días. Para una institución debe seleccionar su certificado oficial. Esta opción no modifica la confianza de Windows; los clientes todavía necesitarán confiar explícitamente en el certificado de pruebas." Margin="0,6,0,12"/>
+   <Button Content="Preparar certificado para pruebas locales" Click="PrepareLocalCertificate"/>
+   <TextBlock Text="Certificado del servidor (.pfx), no certificado de desarrollo"/><TextBox x:Name="Certificate"/><Button Content="Seleccionar certificado…" Click="SelectCertificate"/>
+   <TextBlock Text="Contraseña del certificado"/><PasswordBox x:Name="CertificatePassword"/>
+   <TextBlock Text="Base de datos de pruebas" FontWeight="Bold" Margin="0,12,0,8"/>
+   <TextBlock Text="Equipo donde está PostgreSQL"/><TextBox x:Name="DatabaseHost" Text="localhost"/>
+   <TextBlock Text="Puerto de PostgreSQL"/><TextBox x:Name="DatabasePort" Text="5432"/>
+   <TextBlock Text="Nombre de la base (no use ARGOS original para esta prueba)"/><TextBox x:Name="DatabaseName" Text="ARGOS_PRUEBAS_20260917"/>
+   <TextBlock Text="Usuario de PostgreSQL"/><TextBox x:Name="DatabaseUser" Text="postgres"/>
+   <TextBlock Text="Contraseña de PostgreSQL"/><PasswordBox x:Name="Database"/>
+   <TextBlock Text="La conexión técnica se construye automáticamente. La contraseña no se muestra ni se pasa en comandos." Margin="0,0,0,12"/>
+   <TextBlock Text="Correo remitente"/><TextBox x:Name="Sender" Text="sistema.argosp@gmail.com"/>
+   <TextBlock Text="Contraseña de aplicación del correo"/><PasswordBox x:Name="MailPassword"/>
+   <CheckBox x:Name="Confirmed" Content="Confirmo el destino y que la base elegida es la correcta." Margin="0,12"/>
+  </StackPanel>
+  <Button x:Name="InstallButton" Content="Instalar sin iniciar" Click="Install" Background="#087F86" Foreground="White"/>
+  <TextBlock x:Name="Result" Margin="0,10"/>
+ </StackPanel></ScrollViewer>
+</Window>

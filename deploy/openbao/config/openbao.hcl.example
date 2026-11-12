@@ -1,0 +1,17 @@
+ui = false
+disable_mlock = false
+
+listener "tcp" {
+  address            = "0.0.0.0:8200"
+  cluster_address    = "0.0.0.0:8201"
+  tls_cert_file      = "/openbao/tls/server.crt"
+  tls_key_file       = "/openbao/tls/server.key"
+  tls_client_ca_file = "/openbao/tls/ca.crt"
+}
+
+storage "raft" {
+  path = "/openbao/data"
+}
+
+api_addr     = "https://openbao.internal.example:8200"
+cluster_addr = "https://openbao.internal.example:8201"

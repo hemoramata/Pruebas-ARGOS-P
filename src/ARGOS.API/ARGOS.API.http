@@ -1,0 +1,66 @@
+@ARGOS.API_HostAddress = http://localhost:5189
+
+### Create a draft
+# @name createProcedure
+POST {{ARGOS.API_HostAddress}}/api/procedures/
+Content-Type: application/json
+
+{
+  "code": "P-001",
+  "name": "Solicitud de constancia",
+  "description": "Emisión de una constancia"
+}
+
+### Submit the draft for review
+POST {{ARGOS.API_HostAddress}}/api/procedures/{{createProcedure.response.body.$.id}}/submit-review
+Content-Type: application/json
+
+{
+  "policy": {
+    "requiredApprovalCount": 1,
+    "separationOfDutiesRequired": true,
+    "emergencyPublicationAllowed": false,
+    "emergencyRatificationRequired": false
+  },
+  "decision": {
+    "actorReference": "person-author",
+    "assignmentReference": "assignment-author",
+    "positionReference": "position-author",
+    "competenceCode": "PROCEDURE-SUBMIT",
+    "policyVersion": "policy-v1",
+    "authorizationReference": "authorization-submit-001",
+    "comments": "Ready for review"
+  }
+}
+
+### Approve the version
+POST {{ARGOS.API_HostAddress}}/api/procedures/{{createProcedure.response.body.$.id}}/approve
+Content-Type: application/json
+
+{
+  "actorReference": "person-approver",
+  "assignmentReference": "assignment-approver",
+  "positionReference": "position-approver",
+  "competenceCode": "PROCEDURE-APPROVE",
+  "policyVersion": "policy-v1",
+  "authorizationReference": "authorization-approve-001",
+  "comments": "Approved"
+}
+
+### Publish the approved version
+POST {{ARGOS.API_HostAddress}}/api/procedures/{{createProcedure.response.body.$.id}}/publish
+Content-Type: application/json
+
+{
+  "actorReference": "person-publisher",
+  "assignmentReference": "assignment-publisher",
+  "positionReference": "position-publisher",
+  "competenceCode": "PROCEDURE-PUBLISH",
+  "policyVersion": "policy-v1",
+  "authorizationReference": "authorization-publish-001",
+  "comments": "Effective immediately"
+}
+
+### List only operational published procedures
+GET {{ARGOS.API_HostAddress}}/api/procedures/
+Accept: application/json

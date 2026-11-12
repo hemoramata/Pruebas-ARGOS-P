@@ -1,0 +1,23 @@
+[Unit]
+Description=ARGOS API institucional
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=argos
+Group=argos
+WorkingDirectory=/opt/argos/app
+EnvironmentFile=/etc/argos/argos.env
+ExecStart=/opt/argos/app/ARGOS.API --environment Production
+Restart=on-failure
+RestartSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/argos /var/log/argos
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

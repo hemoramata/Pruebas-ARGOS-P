@@ -1,0 +1,49 @@
+using ARGOS.SharedKernel.Results;
+
+namespace ARGOS.Domain.Aggregates.Workflow.Errors;
+
+/// <summary>
+/// Domain errors for the Workflow aggregate.
+/// </summary>
+public static class WorkflowErrors
+{
+    public static readonly Error NameIsRequired =
+        Error.Validation(
+            "Workflow.Name.Required",
+            "The workflow name is required.");
+
+    public static readonly Error DescriptionIsRequired =
+        Error.Validation(
+            "Workflow.Description.Required",
+            "The workflow description is required.");
+
+    public static readonly Error ProcedureIsRequired =
+        Error.Validation(
+            "Workflow.Procedure.Required",
+            "A workflow must be associated with a procedure.");
+
+    public static readonly Error OrganizationIsRequired =
+        Error.Validation(
+            "Workflow.Organization.Required",
+            "A workflow must belong to an organization.");
+
+    public static readonly Error AlreadyActive =
+        Error.Conflict(
+            "Workflow.AlreadyActive",
+            "The workflow is already active.");
+
+    public static readonly Error AlreadyInactive =
+        Error.Conflict(
+            "Workflow.AlreadyInactive",
+            "The workflow is already inactive.");
+
+    public static readonly Error AlreadyArchived =
+        Error.Conflict(
+            "Workflow.AlreadyArchived",
+            "The workflow is already archived.");
+
+    public static readonly Error InvalidStatusTransition =
+        Error.Validation(
+            "Workflow.InvalidStatusTransition",
+            "The requested workflow status transition is not allowed.");
+}

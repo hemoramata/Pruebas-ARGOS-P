@@ -1,0 +1,21 @@
+<Window x:Class="ARGOS.Server.RestoreWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="ARGOS · Restaurar respaldo" Width="700" Height="720" WindowStartupLocation="CenterOwner">
+ <Window.Resources><Style TargetType="TextBox"><Setter Property="Padding" Value="8"/><Setter Property="Margin" Value="0,4,0,10"/></Style><Style TargetType="Button"><Setter Property="Padding" Value="12"/><Setter Property="Margin" Value="0,8"/></Style></Window.Resources>
+ <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="24">
+  <TextBlock Text="Restaurar respaldo cifrado" FontSize="24" FontWeight="Bold"/>
+  <TextBlock Text="Solo restaure en una base destino creada para recuperación. Esta operación escribe datos en esa base y nunca debe apuntar a la base original." Margin="0,12"/>
+  <StackPanel x:Name="Fields">
+   <TextBlock Text="Archivo de respaldo (.argosbackup)"/><TextBox x:Name="BackupFile"/><Button Content="Elegir respaldo…" Click="ChooseBackup"/>
+   <TextBlock Text="Clave de recuperación"/><PasswordBox x:Name="RecoveryPassphrase" Padding="8" Margin="0,4,0,10"/>
+   <TextBlock Text="Servidor PostgreSQL destino"/><TextBox x:Name="Host" Text="localhost"/>
+   <TextBlock Text="Puerto"/><TextBox x:Name="Port" Text="5432"/>
+   <TextBlock Text="Base destino (debe existir y ser exclusiva de recuperación)"/><TextBox x:Name="Database"/>
+   <TextBlock Text="Usuario"/><TextBox x:Name="User" Text="postgres"/>
+   <TextBlock Text="Contraseña PostgreSQL"/><PasswordBox x:Name="Password" Padding="8" Margin="0,4,0,10"/>
+   <TextBlock Text="Carpeta bin de PostgreSQL"/><TextBox x:Name="Bin" Text="C:\Program Files\PostgreSQL\18\bin"/>
+   <Button Content="Elegir herramientas PostgreSQL…" Click="ChooseBin"/>
+   <CheckBox x:Name="Consent" Content="Confirmo que la base indicada es destino de recuperación y puede recibir datos." Margin="0,10"/>
+  </StackPanel>
+  <Button x:Name="RestoreButton" Content="Restaurar en la base destino" Click="Restore"/>
+  <TextBlock x:Name="Result" Margin="0,12"/>
+ </StackPanel></ScrollViewer>
+</Window>

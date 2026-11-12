@@ -1,0 +1,2 @@
+namespace ARGOS.Application.Security;
+public interface ISensitiveDecisionStore { Task AddAsync(SensitiveDecision decision,CancellationToken ct=default); Task<SensitiveDecision?> GetAsync(Guid organizationId,Guid id,CancellationToken ct=default); Task SaveAsync(CancellationToken ct=default); }

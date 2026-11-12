@@ -1,0 +1,113 @@
+<Window x:Class="ARGOS.Desktop.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+ Title="ARGOS · Escritorio institucional" Width="1080" Height="720"
+ MinWidth="820" MinHeight="620" Background="#F3F6F8" FontFamily="Segoe UI"
+ WindowStartupLocation="CenterScreen">
+ <Window.Resources>
+  <Style TargetType="Button">
+   <Setter Property="Padding" Value="16,12" />
+   <Setter Property="Margin" Value="0,0,0,12" />
+   <Setter Property="HorizontalContentAlignment" Value="Left" />
+  </Style>
+ </Window.Resources>
+ <Grid>
+  <Grid.ColumnDefinitions><ColumnDefinition Width="240"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+  <Border Background="#122E3B" Padding="24">
+   <StackPanel>
+    <TextBlock Text="ARGOS" Foreground="White" FontSize="32" FontWeight="Bold"/>
+    <TextBlock Text="Escritorio institucional" Foreground="#A8CED0" Margin="0,4,0,36"/>
+    <TextBlock Text="Inicio" Foreground="White" FontSize="18" Margin="0,0,0,20"/>
+    <Button Content="Nuevo trámite" IsEnabled="False"/>
+    <Button Content="Bandeja de trabajo" IsEnabled="False"/>
+    <Button Content="Expedientes" IsEnabled="False"/>
+    <Button Content="Evidencias" IsEnabled="False"/>
+    <Button Content="Administración" IsEnabled="False"/>
+    <TextBlock x:Name="SessionName" Text="Sin sesión iniciada" Foreground="#A8CED0" Margin="0,24,0,8" TextWrapping="Wrap"/>
+    <TextBlock Text="Las opciones se habilitarán según su puesto y asignación vigente." Foreground="White" TextWrapping="Wrap"/>
+   </StackPanel>
+  </Border>
+  <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+   <StackPanel Margin="36">
+    <TextBlock Text="Bienvenido a ARGOS" FontSize="30" FontWeight="SemiBold" Foreground="#122E3B"/>
+    <TextBlock Text="Una ventana común para el trabajo de su institución." Margin="0,8,0,30" TextWrapping="Wrap"/>
+    <Border Background="White" Padding="24" CornerRadius="10">
+     <StackPanel>
+      <TextBlock Text="Conexión institucional" FontSize="20" FontWeight="SemiBold"/>
+      <Label Content="Dirección de ARGOS Server" Target="{Binding ElementName=ServerAddress}" Margin="0,16,0,0"/>
+      <TextBox x:Name="ServerAddress" Text="https://localhost:5001/" Padding="10" FontSize="15"/>
+      <Button x:Name="CheckButton" Content="Comprobar conexión" Click="CheckConnection" Margin="0,16,0,12"/>
+      <TextBlock x:Name="ConnectionStatus" Text="Indique la dirección proporcionada por su departamento de TI." TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite"/>
+     </StackPanel>
+    </Border>
+    <Border x:Name="CaseFilePanel" Background="White" Padding="24" CornerRadius="10" Margin="0,20,0,0" Visibility="Collapsed">
+     <StackPanel>
+      <TextBlock Text="Trámites y expedientes" FontSize="20" FontWeight="SemiBold"/>
+      <TextBlock Text="Seleccione el expediente en el que trabajará. No necesita copiar identificadores técnicos." TextWrapping="Wrap" Margin="0,8,0,12"/>
+      <WrapPanel><ComboBox x:Name="CaseFileSelector" DisplayMemberPath="Display" SelectedValuePath="Id" Width="390" SelectionChanged="SelectCaseFile"/><Button Content="Actualizar" Click="LoadCaseFiles" Margin="12,0,0,0"/></WrapPanel>
+      <TextBlock Text="Crear expediente nuevo" FontWeight="SemiBold" Margin="0,18,0,6"/>
+      <WrapPanel><TextBox x:Name="NewCaseFileNumber" Width="250" ToolTip="Ejemplo: US-DI-0001-2026"/><Button x:Name="CreateCaseFileButton" Content="Crear expediente" Click="CreateCaseFile" Margin="12,0,0,0"/></WrapPanel>
+      <TextBlock x:Name="CaseFileStatus" TextWrapping="Wrap" Margin="0,10,0,0" AutomationProperties.LiveSetting="Polite"/>
+     </StackPanel>
+    </Border>
+    <Border Background="White" Padding="24" CornerRadius="10" Margin="0,20,0,0">
+     <StackPanel>
+      <TextBlock Text="Acceso institucional" FontSize="20" FontWeight="SemiBold"/>
+      <StackPanel x:Name="CredentialsPanel">
+       <Label Content="Identificación oficial" Target="{Binding ElementName=Identification}"/>
+       <TextBox x:Name="Identification" MaxLength="100" Padding="10"/>
+       <Label Content="Contraseña" Target="{Binding ElementName=Password}"/>
+       <PasswordBox x:Name="Password" MaxLength="1024" Padding="10"/>
+       <Button x:Name="LoginButton" Content="Continuar" Click="BeginLogin" Margin="0,16,0,8"/>
+      </StackPanel>
+      <StackPanel x:Name="CodePanel" Visibility="Collapsed">
+       <TextBlock x:Name="DeliveryDestination" TextWrapping="Wrap" Margin="0,12"/>
+       <Label Content="Código de verificación" Target="{Binding ElementName=VerificationCode}"/>
+       <PasswordBox x:Name="VerificationCode" MaxLength="6" Padding="10"/>
+       <Button x:Name="VerifyButton" Content="Verificar e ingresar" Click="VerifyLogin" Margin="0,16,0,8"/>
+      </StackPanel>
+      <Button x:Name="LogoutButton" Content="Cancelar / cerrar sesión" Click="Logout" Visibility="Collapsed"/>
+      <StackPanel x:Name="PasswordChangePanel" Visibility="Collapsed" Margin="0,12,0,0">
+       <TextBlock Text="Cambio obligatorio de clave" FontWeight="SemiBold" Margin="0,0,0,8"/>
+       <PasswordBox x:Name="CurrentPassword" MaxLength="1024" Padding="10"/>
+       <PasswordBox x:Name="NewPassword" MaxLength="1024" Padding="10" Margin="0,8,0,0"/>
+       <Button x:Name="ChangePasswordButton" Content="Cambiar clave" Click="ChangePassword" Margin="0,12,0,0"/>
+      </StackPanel>
+      <TextBlock x:Name="LoginStatus" Text="Su institución debe habilitar la cuenta y el medio de verificación." TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite"/>
+     </StackPanel>
+    </Border>
+    <Border x:Name="DocumentPanel" Background="White" Padding="24" CornerRadius="10" Margin="0,20,0,0" Visibility="Collapsed">
+     <StackPanel>
+      <TextBlock Text="Digitalización y clasificación" FontSize="20" FontWeight="SemiBold"/>
+      <TextBlock Text="El documento se procesa temporalmente en memoria. Revise siempre la sugerencia antes de incorporarlo a un expediente." TextWrapping="Wrap" Margin="0,8,0,14"/>
+      <WrapPanel>
+       <Button x:Name="ImportDocumentButton" Content="Importar PDF o imagen" Click="ImportDocument" Margin="0,0,12,12"/>
+       <Button x:Name="ScanDocumentButton" Content="Escanear documento" Click="ScanDocument" Margin="0,0,12,12"/>
+       <Button x:Name="DiscardDocumentButton" Content="Descartar temporal" Click="DiscardDocument" IsEnabled="False"/>
+      </WrapPanel>
+      <TextBlock x:Name="DocumentStatus" Text="Inicie sesión para usar las funciones de captura." TextWrapping="Wrap" AutomationProperties.LiveSetting="Polite"/>
+      <Grid x:Name="DocumentResult" Visibility="Collapsed" Margin="0,14,0,0">
+       <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+       <StackPanel Margin="0,0,16,0">
+        <TextBlock Text="Documento temporal" FontWeight="SemiBold"/>
+        <TextBlock x:Name="DocumentMetadata" TextWrapping="Wrap" Margin="0,6,0,0"/>
+        <Image x:Name="DocumentPreview" MaxHeight="220" Stretch="Uniform" Margin="0,10,0,0"/>
+       </StackPanel>
+       <StackPanel Grid.Column="1">
+        <TextBlock Text="Clasificación sugerida" FontWeight="SemiBold"/>
+        <ComboBox x:Name="DocumentClassification" DisplayMemberPath="Name" SelectedValuePath="Id" Margin="0,6,0,10"/>
+        <TextBlock Text="Expediente de destino" FontWeight="SemiBold"/>
+        <TextBox x:Name="CaseFileId" IsReadOnly="True" ToolTip="Seleccione o cree un expediente arriba" Margin="0,6,0,10"/>
+        <TextBlock Text="Texto reconocido (OCR)" FontWeight="SemiBold"/>
+        <TextBox x:Name="RecognizedText" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="160" Margin="0,6,0,0"/>
+       </StackPanel>
+      </Grid>
+      <Button x:Name="ConfirmDocumentButton" Content="Confirmar clasificación y remitir al expediente" Click="ConfirmDocument" IsEnabled="False" Margin="0,16,0,0"/>
+      <TextBlock Text="La recepción solo se confirma cuando ARGOS Server cifra, registra y audita el documento. Esta pantalla no guarda una copia local." Foreground="#5C4650" TextWrapping="Wrap" Margin="0,16,0,0"/>
+     </StackPanel>
+    </Border>
+    <TextBlock Text="La información entregada por contribuyentes será custodiada por ARGOS Server." TextWrapping="Wrap" Margin="0,20,0,0"/>
+   </StackPanel>
+  </ScrollViewer>
+ </Grid>
+</Window>

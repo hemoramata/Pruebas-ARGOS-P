@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inicio · ARGOS</title><link rel="stylesheet" href="style.css"><script defer src="app.js"></script></head>
+<body><header><a class="brand" href="/home/">A <span>ARGOS<small>Inicio institucional</small></span></a><button id="logout" hidden>Cerrar sesión</button></header>
+<main><p class="eyebrow">SU ESPACIO DE TRABAJO</p><h1 id="welcome">Bienvenido a ARGOS</h1>
+<p id="message" role="status" aria-live="polite">Comprobando su sesión…</p>
+<section id="workspace" hidden><p class="intro">Seleccione una opción para continuar. No necesita repetir la configuración inicial.</p>
+<div class="cards">
+<a id="organization" class="card" href="/setup/" hidden><span class="symbol" aria-hidden="true">01</span><h2>Configuración institucional</h2><p>Consulte la estructura y el vocabulario de su institución. Los cambios se preparan en una nueva versión.</p><strong>Consultar configuración →</strong></a>
+<a id="personnel" class="card" href="/personnel/" hidden><span class="symbol" aria-hidden="true">02</span><h2>Personas y nombramientos</h2><p>Registre personas y asigne los puestos institucionales que pueden ejercer.</p><strong>Abrir personas →</strong></a>
+<a id="access" class="card" href="/access/" hidden><span class="symbol" aria-hidden="true">03</span><h2>Cuentas y permisos</h2><p>Habilite cuentas institucionales y asigne permisos según el puesto.</p><strong>Abrir cuentas →</strong></a>
+<a id="documentCategories" class="card" href="/document-categories/" hidden><span class="symbol" aria-hidden="true">04</span><h2>Categorías documentales</h2><p>Defina las categorías que el personal confirmará al digitalizar documentos.</p><strong>Administrar categorías →</strong></a>
+<a id="procedures" class="card" href="/procedures/" hidden><span class="symbol" aria-hidden="true">05</span><h2>Administración de trámites</h2><p>Consulte versiones y gestione las decisiones permitidas por su puesto.</p><strong>Abrir trámites →</strong></a>
+<a id="audit" class="card" href="/audit/" hidden><span class="symbol" aria-hidden="true">06</span><h2>Actividad institucional</h2><p>Consulte la bitácora de acciones relevantes de la institución.</p><strong>Ver historial →</strong></a>
+</div><p id="empty" hidden>Su sesión está activa, pero su cuenta no tiene módulos habilitados en este portal. Consulte con el administrador institucional las funciones asignadas a su puesto.</p>
+<aside>Las opciones dependen de sus permisos vigentes. Iniciar sesión no concede atribuciones adicionales.</aside>
+<button id="refresh" class="secondary">Actualizar mis opciones</button></section>
+<a id="login" href="/login/?v=home-20260922" hidden>Volver al inicio de sesión</a></main></body></html>

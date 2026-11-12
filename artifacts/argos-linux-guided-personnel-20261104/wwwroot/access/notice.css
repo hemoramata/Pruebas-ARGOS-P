@@ -1,0 +1,24 @@
+.notice {
+  display: grid;
+  gap: 5px;
+  max-width: 720px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #e7f3f1;
+  color: #12616a;
+}
+
+.notice.error {
+  background: #fff3e8;
+  border: 1px solid #f3bf85;
+  color: #8a3d00;
+}
+
+.notice-link {
+  display: inline-block;
+  margin-top: 5px;
+  font-weight: 700;
+  color: #087e86;
+}
+
+.notice.error .notice-link { color: #8a3d00; }

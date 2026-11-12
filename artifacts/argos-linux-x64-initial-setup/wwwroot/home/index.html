@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inicio · ARGOS</title><link rel="stylesheet" href="style.css"><script defer src="app.js"></script></head>
+<body><header><a class="brand" href="/home/">A <span>ARGOS<small>Inicio institucional</small></span></a><button id="logout" hidden>Cerrar sesión</button></header>
+<main><p class="eyebrow">SU ESPACIO DE TRABAJO</p><h1 id="welcome">Bienvenido a ARGOS</h1>
+<p id="message" role="status" aria-live="polite">Comprobando su sesión…</p>
+<section id="workspace" hidden><p class="intro">Seleccione una opción para continuar. No necesita repetir la configuración inicial.</p>
+<div class="cards">
+<a id="organization" class="card" href="/setup/" hidden><span class="symbol" aria-hidden="true">01</span><h2>Configuración institucional</h2><p>Consulte la estructura y el vocabulario de su institución. Los cambios se preparan en una nueva versión.</p><strong>Consultar configuración →</strong></a>
+<a id="procedures" class="card" href="/procedures/" hidden><span class="symbol" aria-hidden="true">02</span><h2>Administración de trámites</h2><p>Consulte versiones y gestione las decisiones permitidas por su puesto.</p><strong>Abrir trámites →</strong></a>
+</div><p id="empty" hidden>Su sesión está activa, pero su cuenta no tiene módulos habilitados en este portal. Consulte con el administrador institucional las funciones asignadas a su puesto.</p>
+<aside>Las opciones dependen de sus permisos vigentes. Iniciar sesión no concede atribuciones adicionales.</aside>
+<button id="refresh" class="secondary">Actualizar mis opciones</button></section>
+<a id="login" href="/login/?v=home-20260922" hidden>Volver al inicio de sesión</a></main></body></html>
